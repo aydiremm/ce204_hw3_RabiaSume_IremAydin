@@ -14,11 +14,15 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import java.awt.Font;
+import java.awt.Window.Type;
+import javax.swing.JTextField;
 
 
 public class editor_GUI extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -44,7 +48,7 @@ public class editor_GUI extends JFrame {
 		setResizable(false);
 		setTitle("Text Code Editor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 749, 528);
+		setBounds(100, 100, 759, 534);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -58,43 +62,69 @@ public class editor_GUI extends JFrame {
 		JTextArea textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
 		
-		JButton btnNewButton = new JButton("Paste");
-		btnNewButton.setBounds(120, 1, 100, 39);
-		btnNewButton.setToolTipText("");
-		btnNewButton.setIcon(new ImageIcon("C:\\Users\\casper\\Desktop\\png\\003-paste.png"));
-		contentPane.add(btnNewButton);
+		JButton btnPaste = new JButton("Paste");
+		btnPaste.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnPaste.setBounds(120, 1, 100, 39);
+		btnPaste.setToolTipText("");
+		btnPaste.setIcon(new ImageIcon(editor_GUI.class.getResource("/ce204_hw3_lib/view/003-paste.png")));
+		contentPane.add(btnPaste);
 		
-		JButton btnNewButton_1 = new JButton("Copy");
-		btnNewButton_1.setBounds(10, 1, 100, 39);
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnCopy = new JButton("Copy");
+		btnCopy.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCopy.setBounds(10, 1, 100, 39);
+		btnCopy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_1.setIcon(new ImageIcon("C:\\Users\\casper\\Desktop\\png\\007-copy-two-paper-sheets-interface-symbol.png"));
-		contentPane.add(btnNewButton_1);
+		btnCopy.setIcon(new ImageIcon(editor_GUI.class.getResource("/ce204_hw3_lib/view/007-copy-two-paper-sheets-interface-symbol.png")));
+		contentPane.add(btnCopy);
 		
-		JButton btnNewButton_2 = new JButton("Cut");
-		btnNewButton_2.setBounds(230, 1, 100, 39);
-		btnNewButton_2.setIcon(new ImageIcon("C:\\Users\\casper\\Desktop\\png\\008-cut-with-scissors.png"));
-		contentPane.add(btnNewButton_2);
+		JButton btnCut = new JButton("Cut");
+		btnCut.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCut.setBounds(230, 1, 100, 39);
+		btnCut.setIcon(new ImageIcon(editor_GUI.class.getResource("/ce204_hw3_lib/view/008-cut-with-scissors.png")));
+		contentPane.add(btnCut);
 		
-		JButton btnNewButton_3 = new JButton("Undo");
-		btnNewButton_3.setBounds(20, 441, 100, 39);
-		btnNewButton_3.setIcon(new ImageIcon("C:\\Users\\casper\\Desktop\\png\\004-undo-circular-arrow.png"));
-		contentPane.add(btnNewButton_3);
+		JButton btnUndo = new JButton("Undo");
+		btnUndo.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnUndo.setBounds(20, 441, 100, 39);
+		btnUndo.setIcon(new ImageIcon(editor_GUI.class.getResource("/ce204_hw3_lib/view/004-undo-circular-arrow.png")));
+		contentPane.add(btnUndo);
 		
-		JButton btnNewButton_4 = new JButton("Redo");
-		btnNewButton_4.setBounds(120, 441, 100, 39);
-		btnNewButton_4.setIcon(new ImageIcon("C:\\Users\\casper\\Desktop\\png\\002-redo-arrow-symbol.png"));
-		contentPane.add(btnNewButton_4);
+		JButton btnRedo = new JButton("Redo");
+		btnRedo.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRedo.setBounds(120, 441, 100, 39);
+		btnRedo.setIcon(new ImageIcon(editor_GUI.class.getResource("/ce204_hw3_lib/view/002-redo-arrow-symbol.png")));
+		contentPane.add(btnRedo);
 		
 		String arr[]= {"Csharp", "Java", "C++" };	
 		JComboBox comboBox = new JComboBox(arr);
-		comboBox.setBounds(556, 1, 176, 35);
+		comboBox.setFont(new Font("Tahoma", Font.BOLD, 12));
+		comboBox.setBounds(495, 1, 125, 35);
 		contentPane.add(comboBox);
 		
-		JButton btnNewButton_5 = new JButton("Compile&Run");
-		btnNewButton_5.setBounds(586, 441, 146, 39);
-		contentPane.add(btnNewButton_5);
+		JButton btnCompile = new JButton("Compile");
+		btnCompile.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCompile.setBounds(541, 446, 86, 29);
+		contentPane.add(btnCompile);
+		
+		JButton btnRun = new JButton("Run");
+		btnRun.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRun.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnRun.setBounds(637, 446, 86, 29);
+		contentPane.add(btnRun);
+		
+		JButton btnApply = new JButton("Apply");
+		btnApply.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnApply.setBounds(633, 1, 92, 35);
+		contentPane.add(btnApply);
+		
+		textField = new JTextField();
+		textField.setBounds(354, 12, 117, 24);
+		contentPane.add(textField);
+		textField.setColumns(10);
 	}
 }
