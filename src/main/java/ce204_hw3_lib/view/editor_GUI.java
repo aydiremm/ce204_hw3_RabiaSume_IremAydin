@@ -47,8 +47,11 @@ public class editor_GUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	command_copy copy = new command_copy();
-	
+	copy_function copy = new copy_function();
+	paste_function paste = new paste_function();
+	cut_function cut = new cut_function();
+	redo_function redo= new redo_function();
+	undo_function undo = new undo_function();
 	
 	public editor_GUI() {
 		setResizable(false);
@@ -77,7 +80,7 @@ public class editor_GUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String input = textArea.getText();
 				String selectedText = textArea.getSelectedText();
-				String clipboard = copy.paste();
+				String clipboard = paste.paste();
 				if (clipboard == null) return;
 
 				int dot = textArea.getCaret().getDot();

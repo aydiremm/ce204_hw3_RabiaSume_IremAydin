@@ -17,16 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class command_copy {
+public class paste_function {
 	
-    public static void execute(String selectedText) {
-    	if (selectedText != null && !selectedText.isEmpty()) {
-            StringSelection selection = new StringSelection(selectedText);
-            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-            clipboard.setContents(selection, null);
-        }
-    	
-    }
+    
     public static String paste() {
     	Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     	Transferable copied = clipboard.getContents(null);
@@ -44,4 +37,3 @@ public class command_copy {
     
     
 }
-
