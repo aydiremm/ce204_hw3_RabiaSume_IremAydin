@@ -18,6 +18,10 @@ import java.awt.Font;
 import java.awt.Window.Type;
 import javax.swing.JTextField;
 
+import ce204_hw3_lib.controller.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
 
 public class editor_GUI extends JFrame {
 
@@ -43,7 +47,9 @@ public class editor_GUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-
+	command_copy copy = new command_copy();
+	
+	
 	public editor_GUI() {
 		setResizable(false);
 		setTitle("Text Code Editor");
@@ -67,13 +73,41 @@ public class editor_GUI extends JFrame {
 		btnPaste.setBounds(120, 1, 100, 39);
 		btnPaste.setToolTipText("");
 		btnPaste.setIcon(new ImageIcon(editor_GUI.class.getResource("/ce204_hw3_lib/view/003-paste.png")));
+		btnPaste.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String input = textArea.getText();
+				String selectedText = textArea.getSelectedText();
+				String clipboard = copy.paste();
+				if (clipboard == null) return;
+
+				int dot = textArea.getCaret().getDot();
+				int mark = textArea.getCaret().getMark();
+				
+				if (input.length() == mark) {
+					input += clipboard;
+				}
+				else if (dot == mark) {
+					input = input.substring(0, dot) + clipboard + input.substring(dot, input.length());
+				}
+				else if (dot != mark) {
+					int begin = dot < mark ? dot : mark;
+					int end = dot > mark ? dot : mark;
+					input = input.substring(0, begin) + clipboard + input.substring(end, input.length());
+				}
+				textArea.setText(input);
+				return;
+			}
+		});
 		contentPane.add(btnPaste);
+		
 		
 		JButton btnCopy = new JButton("Copy");
 		btnCopy.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCopy.setBounds(10, 1, 100, 39);
 		btnCopy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String selectedText = textArea.getSelectedText();
+				copy.execute(selectedText);
 			}
 		});
 		btnCopy.setIcon(new ImageIcon(editor_GUI.class.getResource("/ce204_hw3_lib/view/007-copy-two-paper-sheets-interface-symbol.png")));
@@ -82,6 +116,21 @@ public class editor_GUI extends JFrame {
 		JButton btnCut = new JButton("Cut");
 		btnCut.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCut.setBounds(230, 1, 100, 39);
+		btnCut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String selectedText = textArea.getSelectedText();
+				copy.execute(selectedText);
+
+				int dot = textArea.getCaret().getDot();
+				int mark = textArea.getCaret().getMark();
+				String input = textArea.getText();
+				int begin = dot < mark ? dot : mark;
+				int end = dot > mark ? dot : mark;
+				input = input.substring(0, begin) + input.substring(end, input.length());
+				textArea.setText(input);
+				
+			}
+		});
 		btnCut.setIcon(new ImageIcon(editor_GUI.class.getResource("/ce204_hw3_lib/view/008-cut-with-scissors.png")));
 		contentPane.add(btnCut);
 		
