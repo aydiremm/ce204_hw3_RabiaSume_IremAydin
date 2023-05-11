@@ -28,9 +28,4 @@ public class copy_function {
     	
     }
 
-	public String paste() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
