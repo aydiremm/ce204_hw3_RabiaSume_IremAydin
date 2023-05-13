@@ -1,36 +1,24 @@
 package ce204_hw3_lib.view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.UndoableEditEvent;
-import javax.swing.event.UndoableEditListener;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.undo.UndoManager;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 
 import ce204_hw3_App.Main;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import java.awt.Window.Type;
 import javax.swing.JTextField;
 
-import ce204_hw3_lib.controller.*;
 import ce204_hw3_lib.model.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import javax.swing.JLabel;
 
 
 public class editor_GUI extends JFrame {
@@ -41,13 +29,14 @@ public class editor_GUI extends JFrame {
 	public JTextField textField;
 	public RSyntaxTextArea textArea;
 	public JComboBox<Language> comboBox;
+	public JLabel notificationLabel;
+	public Colorize_Syntax colSyntax =new Colorize_Syntax();
 
 
 	/**
 	 * Create the frame.
 	 */
 	
-	Colorize_Syntax colSyntax =new Colorize_Syntax();
 	
 	public editor_GUI(Main main) {
 		this.main = main;
@@ -109,7 +98,8 @@ public class editor_GUI extends JFrame {
 			
 		comboBox = new JComboBox(Language.values());
 		comboBox.setFont(new Font("Tahoma", Font.BOLD, 12));
-		comboBox.setBounds(495, 1, 125, 35);
+		comboBox.setBounds(608, 3, 125, 35);
+		comboBox.addActionListener(e -> main.controller.functionLanguageChange());
 		contentPane.add(comboBox);
 		
 		JButton btnCompile = new JButton("Compile");
@@ -139,26 +129,10 @@ public class editor_GUI extends JFrame {
 		btnRun.setBounds(637, 446, 86, 29);
 		contentPane.add(btnRun);
 		
-		JButton btnApply = new JButton("Apply");
-		btnApply.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnApply.setBounds(633, 1, 92, 35);
-		contentPane.add(btnApply);
-		btnApply.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (comboBox.getSelectedItem().equals("Java")) {
-					colSyntax.javaSyntax(textArea);
-				}
-				
-				else if (comboBox.getSelectedItem().equals("C#")) {
-					colSyntax.csSyntax(textArea);
-				}
-				
-				
-				else if (comboBox.getSelectedItem().equals("C++")) {
-					colSyntax.cppSyntax(textArea);
-				}
-			}
-		});
+		notificationLabel = new JLabel("");
+		notificationLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		notificationLabel.setBounds(230, 454, 301, 14);
+		contentPane.add(notificationLabel);
 		
 
 	}
