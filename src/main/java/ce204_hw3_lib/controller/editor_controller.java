@@ -148,6 +148,7 @@ public class editor_controller {
 			String fileName = getClassName();
 			Language selectedLanguage = (Language) main.view.comboBox.getSelectedItem();
 			
+			Runtime runtime = Runtime.getRuntime();
 			runtime.exec("cmd.exe /c start cmd.exe /k \"" + selectedLanguage.executeCommand + fileName);
 		} catch (Exception e) {}	
 	}
