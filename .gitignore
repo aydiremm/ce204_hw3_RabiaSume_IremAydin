@@ -198,3 +198,10 @@ README.html
 *.iml
 .idea
 .exercism
+
+//Output files
+/*.class
+/*.java
+/*.cpp
+/*.exe
+/*.cs
