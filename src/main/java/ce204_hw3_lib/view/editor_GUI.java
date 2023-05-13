@@ -40,6 +40,7 @@ public class editor_GUI extends JFrame {
 	public JPanel contentPane;
 	public JTextField textField;
 	public RSyntaxTextArea textArea;
+	public JComboBox<Language> comboBox;
 
 
 	/**
@@ -105,9 +106,8 @@ public class editor_GUI extends JFrame {
 		btnRedo.setIcon(new ImageIcon(editor_GUI.class.getResource("/ce204_hw3_lib/view/002-redo-arrow-symbol.png")));
 		btnRedo.addActionListener(e -> main.controller.functionRedo());
 		contentPane.add(btnRedo);
-		
-		String arr[]= {"Csharp", "Java", "C++" };	
-		JComboBox comboBox = new JComboBox(arr);
+			
+		comboBox = new JComboBox(Language.values());
 		comboBox.setFont(new Font("Tahoma", Font.BOLD, 12));
 		comboBox.setBounds(495, 1, 125, 35);
 		contentPane.add(comboBox);
@@ -115,14 +115,27 @@ public class editor_GUI extends JFrame {
 		JButton btnCompile = new JButton("Compile");
 		btnCompile.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCompile.setBounds(541, 446, 86, 29);
+		btnCompile.addActionListener(e -> {
+			try {
+				main.controller.functionCompile();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		contentPane.add(btnCompile);
 		
 		JButton btnRun = new JButton("Run");
 		btnRun.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnRun.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnRun.addActionListener(e -> {
+			try {
+				main.controller.functionRun();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		});
+		contentPane.add(btnCompile);
 		btnRun.setBounds(637, 446, 86, 29);
 		contentPane.add(btnRun);
 		

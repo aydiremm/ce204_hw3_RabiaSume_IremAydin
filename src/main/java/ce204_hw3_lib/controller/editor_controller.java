@@ -15,6 +15,14 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxDocument;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 import ce204_hw3_App.Main;
+import ce204_hw3_lib.model.Language;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class editor_controller {
 	
@@ -102,6 +110,42 @@ public class editor_controller {
 		
 	}
 	
+	public void functionCompile() throws Exception {
+		String fileName = getClassName();
+		
+		Language selectedLanguage = (Language) main.view.comboBox.getSelectedItem();
+		fileName += selectedLanguage.extension;
+		
+		File file = new File(fileName);
+		if (!file.exists()) file.createNewFile();
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		writer.write(main.view.textArea.getText());
+		writer.close();
+		
+		ProcessBuilder processBuilder = new ProcessBuilder();
+
+    	processBuilder.command("cmd.exe", "/c", selectedLanguage.compileCommand + fileName);
+    	
+    	Process process = processBuilder.start();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+        int exitCode = process.waitFor();
+        System.out.println("\nExited with error code : " + exitCode);
+	}
+	
+	
+	public void functionRun() throws IOException {
+		Runtime rt = Runtime.getRuntime();
+		String fileName = "hw3";
+		Language selectedLanguage = (Language) main.view.comboBox.getSelectedItem();
+		rt.exec("cmd.exe /c start cmd.exe /k \"" + selectedLanguage.executeCommand + fileName);
+		
+	}
+	
 	
 	private String getClipboard() {
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -125,6 +169,19 @@ public class editor_controller {
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             clipboard.setContents(selection, null);
         }
+	}
+	
+	private String getClassName() {
+		String fileName = "";
+		String fileText = main.view.textArea.getText();
+		int beginOfClass = fileText.indexOf("public class ");
+		int beginOfClassName = beginOfClass + 13;
+		for (int i = beginOfClassName; i < fileText.length(); i++) {
+			char c = fileText.charAt(i);
+			if (c == ' ') break;
+			fileName += c;
+		}
+		return fileName;
 	}
 	
 	
