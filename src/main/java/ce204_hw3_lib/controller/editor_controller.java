@@ -23,6 +23,7 @@ public class editor_controller {
 	
 	private Main main;
 	public UndoManager undoManager;
+	Runtime runtime = Runtime.getRuntime();
 	
 	public editor_controller(Main main) {
 		this.main = main;
@@ -119,7 +120,7 @@ public class editor_controller {
 	
 	public void functionCompile() {
 		try {
-			Runtime runtime = Runtime.getRuntime();
+			
 			String fileName = getClassName();
 			
 			Language selectedLanguage = (Language) main.view.comboBox.getSelectedItem();
@@ -147,7 +148,6 @@ public class editor_controller {
 			String fileName = getClassName();
 			Language selectedLanguage = (Language) main.view.comboBox.getSelectedItem();
 			
-			Runtime runtime = Runtime.getRuntime();
 			runtime.exec("cmd.exe /c start cmd.exe /k \"" + selectedLanguage.executeCommand + fileName);
 		} catch (Exception e) {}	
 	}
