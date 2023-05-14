@@ -19,12 +19,21 @@ import ce204_hw3_lib.model.Language;
 import java.io.*;
 import java.time.Duration;
 
+/**
+ * This class serves as the controller for the text editor component of the application. it handles user
+ * interactions with the editor and delegates the appropriate action to the corresponding model and view.
+ */
 public class editor_controller {
 	
 	private Main main;
 	public UndoManager undoManager;
 	Runtime runtime = Runtime.getRuntime();
-	
+
+	/**
+	 * initializes a new instance of the editor_controller class.
+	 *
+	 * @param main The main application instance
+	 */
 	public editor_controller(Main main) {
 		this.main = main;
 		this.undoManager = new UndoManager();
@@ -39,12 +48,15 @@ public class editor_controller {
 				+ "}");
 	}
 	
+	/**
+	 * Handles the user's selection of a new language from the language drop-down menu.
+	 */
 	public void functionLanguageChange() {
 		Language selectedLanguage = (Language) main.view.comboBox.getSelectedItem();
 		RSyntaxTextArea textArea = main.view.textArea;
 		Colorize_Syntax colSyntax = main.view.colSyntax;
 		
-		setNotification("Language set to " + selectedLanguage.displayName, 3);
+		setNotification("Language Set To " + selectedLanguage.displayName, 2);
 		switch (selectedLanguage) {
 			case JAVA -> colSyntax.javaSyntax(textArea);
 			case C_SHARP -> colSyntax.csSyntax(textArea);
@@ -53,6 +65,11 @@ public class editor_controller {
 		}
 	}
 	
+	
+	/**
+	 * @brief Function that is called when the user clicks the "Paste" button.
+	 * Pastes the c contents into the editor.
+	 */
 	public void functionPaste() {
 		RSyntaxTextArea textArea = main.view.textArea;
 		String input = textArea.getText();
@@ -76,18 +93,24 @@ public class editor_controller {
 		}
 		
 		textArea.setText(input);
-		setNotification("Paste button clicked", 3);
+		setNotification("Paste Button Clicked", 2);
 		return;
 	}
 	
 
+	/**
+	 * @brief Function for copying selected text to the c
+	 */
 	public void functionCopy() {
 		RSyntaxTextArea textArea = main.view.textArea;
 		String selectedText = textArea.getSelectedText();
 		setClipboard(selectedText);
-		setNotification("Copy button clicked", 3);
+		setNotification("Copy Button Clicked", 2);
 	}
 	
+	/**
+     * @brief Cuts the selected text from the RSyntaxTextArea object and puts it in the c.
+     */
 	public void functionCut() {
 		RSyntaxTextArea textArea = main.view.textArea;
 		String selectedText = textArea.getSelectedText();
@@ -100,24 +123,33 @@ public class editor_controller {
 		int end = dot > mark ? dot : mark;
 		input = input.substring(0, begin) + input.substring(end, input.length());
 		textArea.setText(input);
-		setNotification("Cut button clicked", 3);
+		setNotification("Cut Button Clicked", 2);
 	}
 	
+	/**
+     * @brief Undoes the last edit operation.
+     */
 	public void fuctionUndo() {
 		try {
 			undoManager.undo();
 		} catch (CannotUndoException e) {}
-		setNotification("Undo button clicked", 3);
+		setNotification("Undo Button Clicked", 2);
 	}
 	
+	/**
+     * @brief Red the last edit operation that was undone.
+     */
 	public void functionRedo() {
 		try {
 			undoManager.redo();
 		} catch (CannotRedoException e) {}
-		setNotification("Redo button clicked", 3);
+		setNotification("Redo Button Clicked", 2);
 		
 	}
 	
+	/**
+     * @brief Compiles the code written in the RSyntaxTextArea object and runs it.
+     */
 	public void functionCompile() {
 		try {
 			
@@ -128,7 +160,7 @@ public class editor_controller {
 			
 			System.out.println(fileName + " =? " + selectedLanguage.extension);
 			if (fileName.equals(selectedLanguage.extension)) {
-				setNotification("Class name cannot be null", 6);
+				setNotification("Class Name Cannot Be Null", 5);
 				return;
 			}
 			
@@ -142,7 +174,9 @@ public class editor_controller {
 		}
 	}
 	
-	
+	/**
+     * @brief Runs the code in the currently active file using the selected programming language.
+     */
 	public void functionRun() {
 		try {
 			String fileName = getClassName();
@@ -153,6 +187,11 @@ public class editor_controller {
 		} catch (Exception e) {}	
 	}
 	
+	/**
+     * @brief Sets a notification message to display on the program's notification label for a set amount of time.
+     * @param text The text of the notification message.
+     * @param seconds The number of seconds to display the message for.
+     */
 	public void setNotification(String text, int seconds) {
 		new Thread(() -> {
 			
@@ -164,7 +203,10 @@ public class editor_controller {
 		}).start();
 	}
 	
-	
+	/**
+     * @brief Gets the text currently stored in the system c.
+     * @return The text currently stored in the system c, or null if no text is available.
+     */
 	private String getClipboard() {
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     	Transferable copied = clipboard.getContents(null);
@@ -180,7 +222,10 @@ public class editor_controller {
         return null;
 	}
 	
-	
+	/**
+     * @brief Sets the text in the system c to the given selected text.
+     * @param selectedText The text to set as the new system c contents.
+     */
 	private void setClipboard(String selectedText) {
 		if (selectedText != null && !selectedText.isEmpty()) {
             StringSelection selection = new StringSelection(selectedText);

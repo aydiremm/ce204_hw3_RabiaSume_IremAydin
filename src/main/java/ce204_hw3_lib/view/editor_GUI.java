@@ -20,11 +20,24 @@ import javax.swing.JTextField;
 import ce204_hw3_lib.model.*;
 import javax.swing.JLabel;
 
-
+/**
+ * @class editor_GUI
+ * @brief This class represents the GUI for a text code editor.
+ */
 public class editor_GUI extends JFrame {
 	
+	/**
+	 * A reference to the `Main` object, which controls the behavior of the text code editor.
+	 */	
 	private Main main;
-
+	
+	/**
+	 * The content pane of the editor window.
+	 * The text area where the code is displayed.
+	 * The drop-down box for selecting the programming language to use.
+	 * The label where notifications are displayed.
+	 * A helper object for syntax highlighting.
+	 */
 	public JPanel contentPane;
 	public JTextField textField;
 	public RSyntaxTextArea textArea;
@@ -32,12 +45,14 @@ public class editor_GUI extends JFrame {
 	public JLabel notificationLabel;
 	public Colorize_Syntax colSyntax =new Colorize_Syntax();
 
-
 	/**
 	 * Create the frame.
 	 */
 	
-	
+	/**
+	 * @brief Constructor for the `editor_GUI` class.
+	 * @param main A reference to the `Main` object, which controls the behavior of the text code editor.
+	 */
 	public editor_GUI(Main main) {
 		this.main = main;
 		setResizable(false);
@@ -134,6 +149,5 @@ public class editor_GUI extends JFrame {
 		notificationLabel.setBounds(230, 454, 301, 14);
 		contentPane.add(notificationLabel);
 		
-
 	}
 }
