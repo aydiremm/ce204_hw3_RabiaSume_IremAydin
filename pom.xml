@@ -42,10 +42,5 @@
 		    <artifactId>rsyntaxtextarea</artifactId>
 		    <version>3.3.3</version>
 		</dependency>
-		<dependency>
-			<groupId>com.hw3.editor</groupId>
-			<artifactId>ce204-hw3</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 </project>
