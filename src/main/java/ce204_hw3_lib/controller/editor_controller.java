@@ -58,10 +58,17 @@ public class editor_controller {
 		
 		setNotification("Language Set To " + selectedLanguage.displayName, 2);
 		switch (selectedLanguage) {
-			case JAVA -> colSyntax.javaSyntax(textArea);
-			case C_SHARP -> colSyntax.csSyntax(textArea);
-			case C_PLUS_PLUS -> colSyntax.cppSyntax(textArea);
-			default -> colSyntax.javaSyntax(textArea);
+			case JAVA:
+				colSyntax.javaSyntax(textArea);
+				break;
+			case C_SHARP:
+				colSyntax.csSyntax(textArea);
+				break;
+			case C_PLUS_PLUS:
+				colSyntax.cppSyntax(textArea);
+				break;
+			default:
+				colSyntax.javaSyntax(textArea);
 		}
 	}
 	

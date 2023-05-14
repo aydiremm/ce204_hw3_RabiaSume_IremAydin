@@ -1,0 +1,53 @@
+@startuml
+skinparam classAttributeIconSize 0
+class Colorize_Syntax{
++ javaSyntax(text : RSyntaxTextArea) : void
++ csSyntax(text : RSyntaxTextArea) : void
++ cppSyntax(text : RSyntaxTextArea) : void
+}
+class editor_controller{
+- main : Main
++ undoManager : UndoManager
+runtime : Runtime
++ editor_controller(main : Main)
++ functionLanguageChange() : void
++ functionPaste() : void
++ functionCopy() : void
++ functionCut() : void
++ fuctionUndo() : void
++ functionRedo() : void
++ functionCompile() : void
++ functionRun() : void
++ setNotification(text : String, seconds : int) : void
+- getClipboard() : String
+- setClipboard(selectedText : String) : void
+- getClassName() : String
+}
+class editor_GUI{
+- main : Main
++ contentPane : JPanel
++ textField : JTextField
++ textArea : RSyntaxTextArea
++ comboBox : JComboBox<Language>
++ notificationLabel : JLabel
++ colSyntax : Colorize_Syntax
++ editor_GUI(main : Main)
+}
+editor_GUI --|> JFrame
+class Main{
++ controller : editor_controller
++ view : editor_GUI
++ Main()
++ {static} main(args : String[]) : void
+}
+editor_controller--"- main" Main
+editor_GUI--"- main" Main
+editor_GUI--"+ colSyntax" Colorize_Syntax
+Main--"+ controller" editor_controller
+Main--"+ view" editor_GUI
+enum Language{
+JAVA
+C_SHARP
+C_PLUS_PLUS
+}
+@enduml
